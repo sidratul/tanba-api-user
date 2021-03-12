@@ -1,0 +1,1 @@
+export const SuccessRegister = 'Berhasil registrasi akun';
