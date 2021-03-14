@@ -2,10 +2,9 @@
   "imports": {
     "app/"        : "../tanba-modules/application/",
     "abc/"        : "https://deno.land/x/abc@v1.3.0/",
-    "context/"    : "../tanba-modules/context/",
     "database/"   : "https://bitbucket.org/msidratulm/tanba-modules/raw/v0.0.0/database/",
     "dotenv/"     : "https://deno.land/x/dotenv@v2.0.0/",
-    "jwt/"        : "https://bitbucket.org/msidratulm/tanba-modules/raw/v0.0.0/jwt/",
+    "jwt/"        : "../tanba-modules/jwt/",
     "validation/" : "../tanba-modules/validation/",
     "yup"         : "https://cdn.skypack.dev/yup@0.32.9"
   }
