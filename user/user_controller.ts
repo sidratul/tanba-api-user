@@ -1,4 +1,5 @@
 import { Context } from "abc/context.ts";
+import { TanbaContext } from "context/mod.ts";
 import { GenerateToken, JwtPayloadInterface } from "jwt/mod.ts";
 import { insertUser, findAll } from "./user_model.ts";
 import { UserSchema } from "./user_interface.ts";
@@ -28,6 +29,8 @@ export async function Register(c: Context) {
 
 export async function AllUser(c: Context) {
   const users = await findAll();
+
+  const tc: TanbaContext = c.customContext;
 
   return {
     message : SuccessRegister,

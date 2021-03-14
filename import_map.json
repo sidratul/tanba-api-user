@@ -1,5 +1,6 @@
 {
   "imports": {
+    "app/"        : "../tanba-modules/application/",
     "abc/"        : "https://deno.land/x/abc@v1.3.0/",
     "context/"    : "../tanba-modules/context/",
     "database/"   : "https://bitbucket.org/msidratulm/tanba-modules/raw/v0.0.0/database/",
