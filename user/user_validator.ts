@@ -3,7 +3,7 @@ import { ErrRequiredUser } from "./user_messages.ts"
 
 export const LoginValidation = yup.object({
   username: yup.string().required(),
-  password: yup.string().required(),
+  password: yup.string().min(6).required()
 });
 
 export const RegisterValidation = yup.object({
