@@ -1,25 +1,33 @@
 import { Context } from "abc/context.ts";
 import { TanbaContext } from "app/context.ts";
 import { generateToken , UserPayload } from "jwt/mod.ts";
-import { insertUser, findAll } from "./user_model.ts";
-import { UserSchema } from "./user_interface.ts";
+import * as UserModel from "./user_model.ts";
+import { User, Login, Register } from "./user_setting.ts";
 import { SuccessRegister } from "./user_messages.ts";
 
 
 export function login(c: Context) {
+  const tc: TanbaContext = c.customContext;
+  const body = tc.data as Login;
+  const user = UserModel.findByUniqueType(body.username);
+
+  console.log("Yser",user);
+
   return c.json({
-    data: "dsdsd",
+    data: {
+      user
+    },
     message : SuccessRegister,
-  },204);
+  });
 }
 
 export async function register(c: Context) {
   const data = {
     username: 'sid',
     password: 'string'
-  } as UserSchema;
+  } as User;
 
-  const id = await insertUser(data);
+  const id = await UserModel.insertUser(data);
   const payload = { } as UserPayload;
 
   payload._id = id;
@@ -36,7 +44,7 @@ export async function register(c: Context) {
 }
 
 export async function users(c: Context) {
-  const users = await findAll();
+  const users = await UserModel.findAll();
 
   const tc: TanbaContext = c.customContext;
 

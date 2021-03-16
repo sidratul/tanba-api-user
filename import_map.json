@@ -1,11 +1,11 @@
 {
   "imports": {
-    "app/"        : "https://bitbucket.org/msidratulm/tanba-modules/raw/latest/application/",
+    "app/"        : "../tanba-modules/application/",
     "abc/"        : "https://deno.land/x/abc@v1.3.0/",
-    "database/"   : "https://bitbucket.org/msidratulm/tanba-modules/raw/latest/database/",
+    "database/"   : "../tanba-modules/database/",
     "dotenv/"     : "https://deno.land/x/dotenv@v2.0.0/",
     "jwt/"        : "https://bitbucket.org/msidratulm/tanba-modules/raw/latest/jwt/",
-    "validation/" : "https://bitbucket.org/msidratulm/tanba-modules/raw/latest/validation/",
-    "yup"         : "https://cdn.skypack.dev/yup@0.32.9"
+    "validation/" : "../tanba-modules/validation/",
+    "zod"         : "../tanba-modules/vendor/zod/mod.ts"
   }
 }
