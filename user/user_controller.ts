@@ -4,14 +4,19 @@ import { generateToken , UserPayload } from "jwt/mod.ts";
 import * as UserModel from "./user_model.ts";
 import { User, Login, Register } from "./user_setting.ts";
 import { SuccessRegister } from "./user_messages.ts";
+import { UnauthorizedException } from "abc/mod.ts";
 
 
-export function login(c: Context) {
+
+export async function login(c: Context) {
   const tc: TanbaContext = c.customContext;
   const body = tc.data as Login;
-  const user = UserModel.findByUniqueType(body.username);
+  const user = await UserModel.findByUniqueType(body.username) as User;
+  
+  const error = new UnauthorizedException("check user and password");
 
-  console.log("Yser",user);
+  if(!user?._id) throw error;
+  // jika password tidak sama dengan hash.
 
   return c.json({
     data: {
