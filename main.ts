@@ -7,7 +7,7 @@ import userGroup from "./user/user_route.ts"
 
 console.log(`http://localhost:${Deno.env.get('APP_PORT')}/`);
 
-const up = app.group("/users");
+const up = app.group("/user");
 up.use(auth());
 userGroup(up);
 
