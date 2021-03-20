@@ -1,47 +1,43 @@
 import { Context } from "abc/context.ts";
 import { TanbaContext } from "app/context.ts";
-import { generateToken , UserPayload } from "jwt/mod.ts";
-import * as UserModel from "./user_model.ts";
+import * as jwt from "jwt/mod.ts";
+import * as msg from "./user_messages.ts";
+import * as bcrypt from "hash";
+import { LoginError } from "../custom/exception.ts"
 import { User, Login, Register } from "./user_setting.ts";
-import { SuccessRegister } from "./user_messages.ts";
-import { UnauthorizedException } from "abc/mod.ts";
-
-
+import * as UserModel from "./user_model.ts";
 
 export async function login(c: Context) {
   const tc: TanbaContext = c.customContext;
   const body = tc.data as Login;
   const user = await UserModel.findByUniqueType(body.username) as User;
   
-  const error = new UnauthorizedException("check user and password");
+  const loginError = new LoginError(msg.ErrLogin);
 
-  if(!user?._id) throw error;
-  // jika password tidak sama dengan hash.
+  if(!user?._id) throw loginError;
+  const isPasswordMatch = await bcrypt.compare(body.password, user.password);
+  if(!isPasswordMatch) throw loginError;
+
+  const token = await jwt.generateToken(user as unknown as jwt.UserPayload);
 
   return c.json({
     data: {
-      user
+      token
     },
-    message : SuccessRegister,
+    message : msg.LoginSuccess,
   });
 }
 
 export async function register(c: Context) {
-  const data = {
-    username: 'sid',
-    password: 'string'
-  } as User;
+  const tc: TanbaContext = c.customContext;
+  const body = tc.data as Register;
+  body.password = await bcrypt.hash(body.password);
 
-  const id = await UserModel.insertUser(data);
-  const payload = { } as UserPayload;
-
-  payload._id = id;
-  payload.username = data.username;
-
-  const token = await generateToken(payload);
+  const id = await UserModel.insertUser(body as unknown as User);
+  const token = await jwt.generateToken(body as unknown as jwt.UserPayload);
   
   return {
-    message : SuccessRegister,
+    message : msg.SuccessRegister,
     data : {
       token,
     }
@@ -54,7 +50,7 @@ export async function users(c: Context) {
   const tc: TanbaContext = c.customContext;
 
   return {
-    message : SuccessRegister,
+    message : msg.SuccessRegister,
     data : {
       users,
     }

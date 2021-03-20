@@ -3,8 +3,9 @@
     "app/"        : "../tanba-modules/application/",
     "abc/"        : "https://deno.land/x/abc@v1.3.0/",
     "database/"   : "../tanba-modules/database/",
+    "hash"       : "../tanba-modules/hash/bcrypt.ts",
     "dotenv/"     : "https://deno.land/x/dotenv@v2.0.0/",
-    "jwt/"        : "https://bitbucket.org/msidratulm/tanba-modules/raw/latest/jwt/",
+    "jwt/"        : "https://74b7974bedafbfa0e324317b7cfbaae18f24cbbb@raw.githubusercontent.com/sidratul/tanba-modules/master/jwt/",
     "validation/" : "../tanba-modules/validation/",
     "zod"         : "../tanba-modules/vendor/zod/mod.ts"
   }
